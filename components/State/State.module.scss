@@ -1,0 +1,90 @@
+.app {
+	display: grid;
+	align-items: center;
+	justify-content: center;
+}
+
+.wrapper {
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	grid-template-areas:
+		'title title title'
+		'num num num'
+		'reduce . increase';
+	gap: 30px;
+
+	h1,
+	h2 {
+		text-align: center;
+	}
+
+	button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+
+		padding: 20px;
+
+		width: 100%;
+
+		border: none;
+		border-radius: 8px;
+
+		font-size: 16px;
+		font-weight: 700;
+
+		color: white;
+
+		cursor: pointer;
+	}
+}
+
+.title {
+	grid-area: title;
+}
+
+.num {
+	grid-area: num;
+
+	font-size: 160px;
+	line-height: 1;
+
+	padding: 40px 16px;
+
+	border-radius: 8px;
+
+	background: #29292e;
+}
+
+.reduce {
+	grid-area: reduce;
+	background: var(--anti-accent);
+	transition: all 0.2s;
+}
+
+.increase {
+	grid-area: increase;
+	background: var(--primary);
+	transition: all 0.2s;
+}
+
+.reduce:hover {
+	background: var(--anti-accent-hover);
+	transform: translateY(-4px);
+}
+
+.increase:hover {
+	background: var(--primary-hover);
+	transform: translateY(-4px);
+}
+
+.reduce:active {
+	background: var(--anti-accent-clicked);
+	transform: translateY(4px);
+}
+
+.increase:active {
+	background: var(--primary-clicked);
+	transform: translateY(4px);
+}
