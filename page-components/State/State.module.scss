@@ -1,0 +1,37 @@
+.app {
+	display: grid;
+	align-items: center;
+	justify-content: center;
+}
+
+.wrapper {
+	display: grid;
+	grid-template-columns: auto 1fr auto;
+	grid-template-areas:
+		'title title title'
+		'num num num'
+		'reduce . increase';
+	gap: 30px;
+
+	h1,
+	h2 {
+		text-align: center;
+	}
+}
+
+.title {
+	grid-area: title;
+}
+
+.num {
+	grid-area: num;
+
+	font-size: 160px;
+	line-height: 1;
+
+	padding: 40px 16px;
+
+	border-radius: 8px;
+
+	background: #29292e;
+}

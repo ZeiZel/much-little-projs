@@ -1,19 +1,29 @@
-import Head from 'next/head';
-import Image from 'next/image';
-import { Inter } from '@next/font/google';
-import styles from '@/styles/Home.module.css';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
+import React from 'react';
+import { Button } from '@/components';
+import styles from '../styles/Home.module.scss';
+import { withLayout } from '@/layout/Layout';
 
-const inter = Inter({ subsets: ['latin'] });
-
-export default function Home() {
-	const router = useRouter();
-
+function Home() {
 	return (
-		<>
-			<h1>Главная страница с приложениями</h1>
-			<Link href={'lessons/state'}>Урок состояния</Link>
-		</>
+		<div className={styles.wrapper}>
+			<h1>React фундаментальный</h1>
+			<div className={styles.links}>
+				<Link href={'fundamentals/state'}>
+					<Button buttonType={'purple'}>Состояния React</Button>
+				</Link>
+				<Link href={'fundamentals/controlledInput'}>
+					<Button buttonType={'purple'}>Управляемый инпут</Button>
+				</Link>
+				<Link href={'fundamentals/classCounter'}>
+					<Button buttonType={'purple'}>Классовый компонент</Button>
+				</Link>
+				<Link href={'fundamentals/postsPage'}>
+					<Button buttonType={'purple'}>Посты</Button>
+				</Link>
+			</div>
+		</div>
 	);
 }
+
+export default Home;

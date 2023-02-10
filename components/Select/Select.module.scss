@@ -1,0 +1,15 @@
+.select {
+	margin-bottom: 20px;
+	padding: 10px;
+
+	background: none;
+
+	border: 1px dashed var(--anti-accent);
+	border-radius: 5px;
+
+	color: var(--white);
+
+	option {
+		color: var(--black);
+	}
+}

@@ -1,0 +1,10 @@
+.wrapper {
+	display: grid;
+	flex-direction: column;
+	gap: 30px;
+
+
+	input, h1 {
+		max-width: 300px;
+	}
+}

@@ -1,0 +1,77 @@
+.button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+
+	padding: 20px;
+
+	width: 100%;
+
+	border: none;
+	border-radius: 8px;
+
+	font-size: 16px;
+	font-weight: 700;
+
+	color: white;
+
+	cursor: pointer;
+}
+
+.gray {
+	grid-area: reduce;
+	background: var(--anti-accent);
+	transition: all 0.2s;
+
+	&:hover {
+		background: var(--anti-accent-hover);
+		transform: translateY(-4px);
+	}
+
+	&:active {
+		background: var(--anti-accent-clicked);
+		transform: translateY(4px);
+	}
+}
+
+.purple {
+	grid-area: increase;
+	background: var(--primary);
+	transition: all 0.2s;
+
+	&:hover {
+		background: var(--primary-hover);
+		transform: translateY(-4px);
+	}
+
+	&:active {
+		background: var(--primary-clicked);
+		transform: translateY(4px);
+	}
+}
+
+.ghost {
+	position: absolute;
+	top: 20px;
+	left: 20px;
+
+	width: 100px;
+	height: 20px;
+
+	grid-area: increase;
+	background: none;
+	transition: all 0.2s;
+
+	border: 2px dashed var(--anti-accent);
+	border-radius: 2px;
+
+	&:hover {
+		background: var(--anti-accent-hover);
+		transform: translateY(-4px);
+	}
+
+	&:active {
+		transform: translateY(4px);
+	}
+}

@@ -1,4 +1,7 @@
 :root {
+	--black: #212121;
+	--white: #dadada;
+
 	--primary: #6c38cc;
 	--primary-hover: #552ba1;
 	--primary-clicked: #7d41ee;
@@ -21,6 +24,7 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
 	min-height: 100vh;
 
 	background: #121214;

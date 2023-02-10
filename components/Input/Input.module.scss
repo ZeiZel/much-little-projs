@@ -1,0 +1,19 @@
+.input {
+	padding: 7px 15px; /* отступ от внутреннего контента */
+
+	color: var(--black);
+	border: none;
+	outline-color: var(--black); /* аутлайн обязательно нужен, так как он позволяет навигироваться по инпутам */
+	background: var(--white);
+
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+	border-radius: 5px;
+
+	font-family: var(--font-family); /* в инпуте нужно насильно указать наш шрифт */
+	font-size: 16px;
+	line-height: 22px;
+}
+
+.input::placeholder {
+	color: var(--anti-accent);
+}
