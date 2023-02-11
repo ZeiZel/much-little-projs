@@ -1,37 +1,35 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import axios from 'axios';
 import styles from './Posts.module.scss';
 import { Button, Modal, PostFilter } from '@/components';
 import { PostForm } from '@/components';
 import { PostList } from '@/components';
 import { IPost } from '@/page-components/Posts/Posts.interface';
 import { IFilter } from '@/components/PostFilter/PostFilter.props';
+import { usePosts } from '@/hooks/usePosts';
+import PostService from '@/API/post.service';
 
 export const Posts = () => {
-	const [posts, setPosts] = useState<IPost[]>([
-		{ id: 'asd1', title: 'Javascript', body: 'Лучший язык на Земле' },
-		{ id: 'adsgsa2', title: 'C#', body: 'Хроший язык' },
-		{ id: 'fsdagha3', title: 'Python', body: 'Почему бы и нет?' },
-	]);
+	const [posts, setPosts] = useState('');
+
+	const fetchPosts = async () => {
+		const posts = await PostService.getAll();
+		setPosts(posts);
+	};
+
+	useEffect(() => {
+		fetchPosts();
+	}, []);
 
 	const [filter, setFilter] = useState<IFilter>({ query: '', sort: 'title' });
 
-	// состояние модального окна
 	const [modal, setModal] = useState(false);
 
-	const sortedPosts = useMemo<IPost[]>(() => {
-		return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]));
-	}, [filter.sort, posts]);
-
-	const sortedAndSearchedPosts = useMemo<IPost[]>(() => {
-		return sortedPosts.filter(post =>
-			post.title.toLowerCase().includes(filter.query.toLowerCase()),
-		);
-	}, [filter.query, sortedPosts]);
+	const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
 
 	const createPost = (newPost: IPost): void => {
 		setPosts([...posts, newPost]);
 
-		// после создания модалки, оно закроется
 		setModal(false);
 	};
 
