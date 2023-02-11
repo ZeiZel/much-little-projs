@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import axios from 'axios';
 import styles from './Posts.module.scss';
-import { Button, Loader, Modal, PostFilter } from '@/components';
+import { Button, Loader, Modal, Pagination, PostFilter } from '@/components';
 import { PostForm } from '@/components';
 import { PostList } from '@/components';
 import { IPost } from '@/page-components/Posts/Posts.interface';
@@ -9,6 +8,7 @@ import { IFilter } from '@/components/PostFilter/PostFilter.props';
 import { usePosts } from '@/hooks/usePosts';
 import PostService from '@/API/post.service';
 import { useFetching } from '@/hooks/useFetching';
+import { getPageCount, getPagesArray } from '@/utilities/pages.utility';
 
 export const Posts = () => {
 	const [posts, setPosts] = useState('');
@@ -16,7 +16,7 @@ export const Posts = () => {
 	const [modal, setModal] = useState(false);
 
 	// состояние, которое хранит общее колчиество постов
-	const [totalCount, setTotalCount] = useState<number>(0);
+	const [totalPages, setTotalPages] = useState<number>(0);
 	// состояние лимита постов
 	const [limit, setLimit] = useState<number>(10);
 	// состояние страницы постов
@@ -26,12 +26,21 @@ export const Posts = () => {
 		const response = await PostService.getAll(limit, page);
 		setPosts(response.data);
 
-		setTotalCount(response.headers['x-total-count']);
+		// общее количество постов получаем из хедера запроса
+		const totalCount = response.headers['x-total-count'];
+
+		// получаем общее количество страниц
+		setTotalPages(getPageCount(totalCount, limit));
 	});
+
+	// тут мы будем устанавливать в состояние выбранную страницу пользователя
+	const changePage = (page: number) => {
+		setPage(page);
+	};
 
 	useEffect(() => {
 		fetchPosts();
-	}, []);
+	}, [page]);
 
 	const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
 
@@ -70,6 +79,8 @@ export const Posts = () => {
 					remove={removePost}
 				/>
 			)}
+
+			<Pagination totalPages={totalPages} page={page} changePage={changePage} />
 		</div>
 	);
 };

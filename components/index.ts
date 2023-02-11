@@ -10,3 +10,4 @@ export * from './PostFilter/PostFilter';
 export * from './PostList/PostList';
 export * from './Modal/Modal';
 export * from './Loader/Loader';
+export * from './Pagination/Pagination';
