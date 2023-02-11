@@ -1,6 +1,6 @@
 import React, { useMemo, useRef, useState } from 'react';
 import styles from './Posts.module.scss';
-import { PostFilter } from '@/components';
+import { Button, Modal, PostFilter } from '@/components';
 import { PostForm } from '@/components';
 import { PostList } from '@/components';
 import { IPost } from '@/page-components/Posts/Posts.interface';
@@ -13,15 +13,15 @@ export const Posts = () => {
 		{ id: 'fsdagha3', title: 'Python', body: 'Почему бы и нет?' },
 	]);
 
-	// состояние селекта и строки поиска
 	const [filter, setFilter] = useState<IFilter>({ query: '', sort: 'title' });
 
-	// получаем отсортированный массив
+	// состояние модального окна
+	const [modal, setModal] = useState(false);
+
 	const sortedPosts = useMemo<IPost[]>(() => {
 		return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]));
 	}, [filter.sort, posts]);
 
-	// сортируем массив по строке поиска
 	const sortedAndSearchedPosts = useMemo<IPost[]>(() => {
 		return sortedPosts.filter(post =>
 			post.title.toLowerCase().includes(filter.query.toLowerCase()),
@@ -30,6 +30,9 @@ export const Posts = () => {
 
 	const createPost = (newPost: IPost): void => {
 		setPosts([...posts, newPost]);
+
+		// после создания модалки, оно закроется
+		setModal(false);
 	};
 
 	const removePost = (post: IPost): void => {
@@ -38,8 +41,16 @@ export const Posts = () => {
 
 	return (
 		<div className={styles.wrapper}>
-			<PostForm create={createPost} />
+			<Button className={styles.button} buttonType={'purple'} onClick={() => setModal(true)}>
+				Создать пост
+			</Button>
+
+			<Modal visible={modal} setVisible={setModal}>
+				<PostForm create={createPost} />
+			</Modal>
+
 			<PostFilter filter={filter} setFilter={setFilter} />
+
 			<PostList className={styles.list} posts={sortedAndSearchedPosts} remove={removePost} />
 		</div>
 	);

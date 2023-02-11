@@ -8,3 +8,4 @@ export * from './PostItem/PostItem';
 export * from './PostForm/PostForm';
 export * from './PostFilter/PostFilter';
 export * from './PostList/PostList';
+export * from './Modal/Modal';
